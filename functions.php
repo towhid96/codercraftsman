@@ -40,4 +40,56 @@
 		}
 	}
 	add_action('wp_enqueue_scripts','css_js_agency_theme');
+
+	if(!function_exists('custom_service')){
+		function custom_service(){
+			register_post_type('service',
+				array(
+					'labels'=>array(
+						'name'=>('Services'),
+						'singular_name'=>('Service'),
+						'add_new'=>('Add new Service'),
+						'add_new_item'=>('Add new Service'),
+						'edit_item'=>('Edit Service'),
+						'new_item'=>('New item'),
+						'view_item'=>('View Service'),
+						'not_found'=>('Sorry, we could\'n find the service you are looking for.'),
+					),
+
+					'menu_icon'=>'dashicons-networking',
+					'public'=>true,
+					'publicly_queryable'=>true,
+					'exclude_from_search'=>true,
+					'menu_position'=>5,
+					'has_archive'=>true,
+					'hierarchial'=>true,
+					'show_ui'=>true,
+					'capability_type'=>'post',
+					'rewrite'=>array('slag'=>'servie'),
+					'support'=>array('title','thumbnail','editor',),
+				)
+				);
+	
+		}
+	}
+	add_action('init','custom_service');
+
+	if(!function_exists('mythemefunction')){
+		function mythemefunction(){
+			add_theme_support('post-thumbnails');
+			add_theme_support('post-formats',array('aside','image','video'));
+			add_theme_support('widgets');
+			add_theme_support('title-tag');
+			// add_theme_support('menus');
+			add_theme_support('html5');
+			add_theme_support('editor-color-palette');
+			// add_theme_support('admin-bar');
+			// add_theme_support('align-wide');
+			load_theme_textdomain('mythemefunction'.get_template_directory().'/languages');
+			register_nav_menus(array(
+				'top_menu' =>__("Top menu","mythemefunction"),));
+
+		} 
+	}
+	add_action('after_setup_theme','mythemefunction');
 ?>
